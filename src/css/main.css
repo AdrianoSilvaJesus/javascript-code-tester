@@ -1,0 +1,80 @@
+* {
+	margin: 0px;
+	padding: 0px;
+}
+
+html, body {
+	height: 100%;
+	width: 100%;
+	/* Estilo */
+	color: white;
+}
+
+#cabecalho {
+	height: 7%;
+	width: 100%;
+	/* Estilo */
+	background-color: black;
+}
+
+.container {
+	height: 93%;
+	display: flex;
+	flex-direction: row;
+}
+
+.saida {
+	height: 100%;
+	flex: 2;
+	/* Estilo */
+	background-color: white;
+}
+
+#editor-texto {
+	height: 100%;
+	flex: 1;
+	/* Estilo */
+	background-color: #222634;
+}
+
+#menu-editor {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	/* Estilo */
+	height: 7%;
+	background-color: #232325;
+}
+
+#menu-editor button#executar{
+	height: 80%;
+	width: 10%;
+	flex: 1 0 1;
+	/* Estilo */
+	background-color: #00b800;
+	border: none;
+	padding: 5px;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#menu-editor svg {
+	width: 20px;
+	height: 20px;
+}
+
+#entrada-texto {
+	width: 99%;
+	height: 93%;
+	/* Estilo */
+	background-color: #000000;
+	color: #00b800;
+	display: flex;
+	flex-direction: column;
+}
+
+.line-selected {
+	background-color: rgba(255, 255, 255, 0.1);
+}

@@ -1,0 +1,12 @@
+{
+  "name": "javascript-tester",
+  "version": "1.0.0",
+  "description": "Um testador de código Javascript",
+  "main": "index.js",
+  "scripts": {
+  	"start": "firefox src/index.html",
+    "test": "yuidoc"
+  },
+  "author": "Adriano Silva Jesus",
+  "license": "GPL-3.0-or-later"
+}
