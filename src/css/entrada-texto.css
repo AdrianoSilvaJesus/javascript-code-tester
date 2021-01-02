@@ -1,0 +1,73 @@
+@import url('https://fonts.googleapis.com/css2?family=Ubuntu+Mono&display=swap');
+
+#editor-texto {
+	height: 100%;
+	flex: 1;
+	/* Estilo */
+	background-color: #222634;
+}
+
+#menu-editor {
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	/* Estilo */
+	height: 7%;
+	background-color: #232325;
+}
+
+#menu-editor button#executar{
+	height: 80%;
+	width: 10%;
+	flex: 1 0 1;
+	/* Estilo */
+	background-color: #00b800;
+	border: none;
+	padding: 5px;
+	color: white;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+#menu-editor svg {
+	width: 20px;
+	height: 20px;
+}
+
+#entrada-texto {
+	width: 99%;
+	height: 93%;
+	/* Estilo */
+	background-color: #000000;
+	color: #00b800;
+	display: flex;
+	flex-direction: column;
+	font-family: 'Ubuntu Mono', monospace;
+}
+
+.line-selected {
+	background-color: rgba(255, 255, 255, 0.1);
+}
+
+span.cursor {
+	font-size: 1.3rem;
+	font-weight: bold;
+	color: white;
+} 
+
+span.especial {
+	color: #c35e15;
+}
+
+span.funcao {
+	color: #1ad8c9;
+}
+
+span.valor {
+	color: #623ca1;
+}
+
+span.setenca {
+	color: #d21055;
+}

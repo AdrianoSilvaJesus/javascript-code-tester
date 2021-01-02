@@ -1,20 +1,25 @@
 var entradaTexto = document.getElementById("entrada-texto");
+var cursor = document.getElementsByClassName('cursor')[0];
+
+// Todas as linhas da entrada de texto;
+var linhas;
+// Referencia ao elemento SPAN com a linha atual
+var linhaAtual;
+// Referencia ao elemento SPAN com a palavra atual
+var palavraAtual;
 
 (function(){
-	// Todas as linhas da entrada de texto;
-	var linhas;
-	// Referencia ao elemento SPAN com a linha atual
-	var linhaAtual;
-	// Referencia ao elemento SPAN com a palavra atual
-	var palavraAtual;
-
 	function inicializa() {
 		linhas = [];
 		linhaAtual = criaSpan("linha");
 		palavraAtual = criaSpan("palavra");
+		cursor = criaSpan("cursor");
 		linhas.push(linhaAtual);
 		entradaTexto.appendChild(linhaAtual);
 		linhaAtual.appendChild(palavraAtual);
+		cursor.innerText = "|";
+		linhaAtual.appendChild(cursor);
+		linhaAtual.addClass("line-selected");
 	}
 
 	inicializa();
@@ -22,20 +27,22 @@ var entradaTexto = document.getElementById("entrada-texto");
 	function separaPalavra(indicePalavra) {
 		palavraAtual = criaSpan("palavra");
 		linhaAtual.appendChild(palavraAtual);
+		linhaAtual.appendChild(cursor);
 	}
 
 	function trocaLinha() {
-		// Remove a linha atual da lista
-		linhas.pop();
-		entradaTexto.removeChild(linhaAtual);
-		// Pega a linha anterior a atual
-		linhaAnterior = linhas[linhas.length - 1]
-		if (!linhaAnterior) {
+		// Remove a linha atual da lista e do elemento pai
+		var linhaAnterior = linhas.pop().remove().previousSibling;
+
+		if (!(linhaAnterior instanceof HTMLElement)) {
 			// Reinicia a entrada de texto com os valores padrão
 			return inicializa();
 		}
+
 		linhaAtual = linhaAnterior;
+		linhaAnterior.addClass("line-selected");
 		palavraAtual = linhaAtual.lastChild;
+		linhaAtual.appendChild(cursor);
 	}
 
 	function quebraLinha() {
@@ -43,14 +50,14 @@ var entradaTexto = document.getElementById("entrada-texto");
 
 		linhas.push(linhaAtual);
 		entradaTexto.appendChild(linhaAtual);
+
+		linhaAtual.previousSibling.removeClass("line-selected");
+		linhaAtual.addClass("line-selected");
 		separaPalavra();
 	}
 
-	function selecionaLinha(direcao) {
-		
-	}
-
 	function entrada(character, characterEspecial) {
+		// Valor atual da palavra antes de ser adicionado ou removido um caractere
 		var palavra = palavraAtual.textContent;
 	 	if(!character && !characterEspecial){
 	 		// Caso a palavra seja vazia pula para a palavra anterior a ela
@@ -74,16 +81,16 @@ var entradaTexto = document.getElementById("entrada-texto");
 	 			separaPalavra();
 	 			return;
 	 		case 'cima':
-	 			console.log("Linha de cima !");
-	 			selecionaLinha(linhas.indexOf(linhaAtual));
+	 			selecionaLinha("cima");
 	 			return;
 	 		case 'baixo':
-	 			console.log("Linha de baixo !");
-	 			selecionaLinha(linhas.indexOf(linhaAtual));
+	 			selecionaLinha("baixo");
 	 			return;
 	 	}
 
 	 	palavraAtual.textContent = palavra = palavra + character;
+
+	 	destacaPalavra(palavraAtual.textContent.trimLeft());
 	}
 	
 	window.onkeypress = function(event) {
