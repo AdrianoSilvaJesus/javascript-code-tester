@@ -49,22 +49,68 @@ var keywords = {
 	yield: "setenca",
 };
 
-function selecionaLinha(direcao) {
+function selecionaLinha(rotina) {
 	linhaAtual.removeClass("line-selected");
-	switch (direcao){
-		case "cima" :
-			linhaAtual = !linhaAtual.previousSibling ? linhaAtual : linhaAtual.previousSibling;
-			break;
-		case "baixo" :
-			linhaAtual = !linhaAtual.nextSibling ? linhaAtual : linhaAtual.nextSibling;
-			break;
-	}
-	linhaAtual.addClass("line-selected");
+	// Remove o cursor no final da linha
+	linhaAtual.removeChild(cursor);
+	
+	// Rotina que pode trocar o valor da linha atual
+	if (rotina) rotina();
+
+	// Pega a ultima palavra da linha atual
 	palavraAtual = linhaAtual.lastChild;
+
+	linhaAtual.addClass("line-selected");
+	// Coloca o cursor no final da linha
+	linhaAtual.appendChild(cursor);
+}
+
+function moveLinha(direcao) {
+	selecionaLinha(function () {
+		switch (direcao){
+			case "cima" :
+				linhaAtual = !(linhaAtual.previousSibling instanceof HTMLElement) ? linhaAtual : linhaAtual.previousSibling;
+				break;
+			case "baixo" :
+				linhaAtual = !(linhaAtual.nextSibling instanceof HTMLElement) ? linhaAtual : linhaAtual.nextSibling;
+				break;
+		}
+	});
 }
 
 function destacaPalavra(palavra) {
-	if(palavra in keywords){
-		palavraAtual.addClass(keywords[palavra]);	
+
+	if (/^\w+\.(\w+)$/g.test(palavra)) {
+		var teste = /^\w+\.(\w+)$/g.exec(palavra);
+		var propriedade = criaSpan("span");
+
+		propriedade.textContent = teste[teste.length - 1];
+		linhaAtual.appendChild(propriedade);
+	};
+
+	if(palavra in keywords) {
+		palavraAtual.addClass(keywords[palavra])
+		return;
+	}
+
+	if (palavraAtual.classList[1]) {
+		palavraAtual.removeClass(palavraAtual.classList[1]);
 	}
 }
+
+(function () {
+	var pesquisa_linha = document.getElementById("pesquisa-linha");
+
+	pesquisa_linha.addEventListener("change", function (event) {
+
+		var indice_linha = event.target.value
+
+		if(!(indice_linha in linhas)) return;
+
+		selecionaLinha(function () {
+			linhaAtual = linhas[indice_linha];
+		});
+	}, false);
+
+	pesquisa_linha.addEventListener("focus",pesquisa_linha.focar, false);
+})();

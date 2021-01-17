@@ -28,3 +28,18 @@ HTMLElement.prototype.remove = function () {
 		nextSibling: nextSibling
 	};
 }
+
+HTMLElement.prototype.focar = function () {
+	var entradas = {
+		entrada_caractere : window.onkeypress, 
+		entrada_especial : window.onkeydown
+	}
+
+	window.onkeypress = function () {};
+	window.onkeydown = function () {};
+
+	this.addEventListener("focusout", function () {
+		window.onkeypress = entradas.entrada_caractere;
+		window.onkeydown = entradas.entrada_especial;
+	}, false);
+}

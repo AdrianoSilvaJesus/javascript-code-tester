@@ -1,8 +1,8 @@
 var entradaTexto = document.getElementById("entrada-texto");
 var cursor = document.getElementsByClassName('cursor')[0];
 
-// Todas as linhas da entrada de texto;
-var linhas;
+// Guarda todas as linhas da entrada-texto
+var linhas = [];
 // Referencia ao elemento SPAN com a linha atual
 var linhaAtual;
 // Referencia ao elemento SPAN com a palavra atual
@@ -10,13 +10,14 @@ var palavraAtual;
 
 (function(){
 	function inicializa() {
-		linhas = [];
 		linhaAtual = criaSpan("linha");
 		palavraAtual = criaSpan("palavra");
 		cursor = criaSpan("cursor");
+
 		linhas.push(linhaAtual);
 		entradaTexto.appendChild(linhaAtual);
 		linhaAtual.appendChild(palavraAtual);
+
 		cursor.innerText = "|";
 		linhaAtual.appendChild(cursor);
 		linhaAtual.addClass("line-selected");
@@ -24,25 +25,28 @@ var palavraAtual;
 
 	inicializa();
 
-	function separaPalavra(indicePalavra) {
+	function separaPalavra(space) {
 		palavraAtual = criaSpan("palavra");
+		
+		palavraAtual.textContent = space ? " " : "";
+
 		linhaAtual.appendChild(palavraAtual);
 		linhaAtual.appendChild(cursor);
 	}
 
 	function trocaLinha() {
-		// Remove a linha atual da lista e do elemento pai
-		var linhaAnterior = linhas.pop().remove().previousSibling;
+		selecionaLinha(function () {
+			// Remove a linha atual da lista e do elemento pai
+			linhas.pop();
+			var linhaAnterior = linhaAtual.remove().previousSibling;
 
-		if (!(linhaAnterior instanceof HTMLElement)) {
-			// Reinicia a entrada de texto com os valores padrão
-			return inicializa();
-		}
+			if (!(linhaAnterior instanceof HTMLElement)) {
+				// Reinicia a entrada de texto com os valores padrão
+				return inicializa();
+			}
 
-		linhaAtual = linhaAnterior;
-		linhaAnterior.addClass("line-selected");
-		palavraAtual = linhaAtual.lastChild;
-		linhaAtual.appendChild(cursor);
+			linhaAtual = linhaAnterior;
+		});
 	}
 
 	function quebraLinha() {
@@ -63,6 +67,8 @@ var palavraAtual;
 	 		// Caso a palavra seja vazia pula para a palavra anterior a ela
 	 		palavraAtual.textContent = palavra = palavra.removeCharAtPosition(palavra.length);
 
+	 		destacaPalavra(palavra);
+
 	 		if(palavra.trim().length == 0) {
 	 			palavraAnterior = palavraAtual.previousSibling;
 	 			linhaAtual.removeChild(palavraAtual);
@@ -78,13 +84,13 @@ var palavraAtual;
 	 			quebraLinha();
 	 			return;
 	 		case 'space':
-	 			separaPalavra();
+	 			separaPalavra(true);
 	 			return;
 	 		case 'cima':
-	 			selecionaLinha("cima");
+	 			moveLinha("cima");
 	 			return;
 	 		case 'baixo':
-	 			selecionaLinha("baixo");
+	 			moveLinha("baixo");
 	 			return;
 	 	}
 
@@ -121,6 +127,11 @@ var palavraAtual;
 	 		case 40:
 	 			entrada(null, "baixo");
 	 			break;
+	 		case 37:
+	 			entrada(null, "cima");
+	 			break;
+	 		case 39:
+	 			entrada(null, "baixo");
 	 	}
 	 }
 })();
