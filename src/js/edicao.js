@@ -85,7 +85,7 @@ function destacaPalavra(palavra) {
 		var propriedade = criaSpan("span");
 
 		propriedade.textContent = teste[teste.length - 1];
-		linhaAtual.appendChild(propriedade);
+		console.log(propriedade);
 	};
 
 	if(palavra in keywords) {
@@ -95,6 +95,25 @@ function destacaPalavra(palavra) {
 
 	if (palavraAtual.classList[1]) {
 		palavraAtual.removeClass(palavraAtual.classList[1]);
+	}
+}
+
+function contadorLinha(acao) {
+	var contador_linha = document.getElementById("contador-linha");
+
+	switch (acao) {
+		case 'incrementar':
+			var numero_linha = document.createElement('span');
+			numero_linha.textContent = linhas.length - 1;
+
+			contador_linha.appendChild(numero_linha);
+
+			break;
+		case 'decrementar':
+			if (!linhas.length) return;
+
+			contador_linha.lastChild.remove();
+			break;
 	}
 }
 

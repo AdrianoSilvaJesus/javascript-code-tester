@@ -35,29 +35,38 @@ var palavraAtual;
 	}
 
 	function trocaLinha() {
-		selecionaLinha(function () {
-			// Remove a linha atual da lista e do elemento pai
-			linhas.pop();
-			var linhaAnterior = linhaAtual.remove().previousSibling;
+		// Remove a linha atual da lista e do elemento pai
+		linhas.pop();
+		var linhaAnterior = linhaAtual.remove().previousSibling;
 
-			if (!(linhaAnterior instanceof HTMLElement)) {
-				// Reinicia a entrada de texto com os valores padrão
-				return inicializa();
-			}
+		if (!(linhaAnterior instanceof HTMLElement)) {
+			// Reinicia a entrada de texto com os valores padrão
+			return inicializa();
+		}
 
-			linhaAtual = linhaAnterior;
-		});
+
+		linhaAtual = linhaAnterior;
+		palavraAtual = linhaAtual.lastChild;
+		// Decrementa o contador de linhas lateral
+		contadorLinha('decrementar')
+		linhaAtual.addClass("line-selected");
+		// Coloca o cursor no final da linha
+		linhaAtual.appendChild(cursor);
 	}
 
 	function quebraLinha() {
+		linhaAtual.removeClass("line-selected");
+		linhaAtual.lastChild.remove();
+		
 		linhaAtual = criaSpan("linha");
-
 		linhas.push(linhaAtual);
-		entradaTexto.appendChild(linhaAtual);
 
-		linhaAtual.previousSibling.removeClass("line-selected");
 		linhaAtual.addClass("line-selected");
+
+		entradaTexto.appendChild(linhaAtual);
 		separaPalavra();
+		// Incrementa o contador de linhas lateral
+		contadorLinha('incrementar');
 	}
 
 	function entrada(character, characterEspecial) {

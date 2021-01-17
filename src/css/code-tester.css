@@ -1,0 +1,22 @@
+.grupo-verdadeiro {
+	text-align: none;
+	flex: 1 0 1;
+	/* Estilo */
+	border: 1px solid #0f5132;
+	background-color: #d1e7dd;
+}
+
+.grupo-falso {
+	/* Estilo */
+	border: 1px solid #87202e;
+	background-color: #f8d7da;
+}
+
+.verdadeiro {
+	color: #0f5132;
+}
+
+.falso {
+	color: #87202e;
+	text-decoration: line-through;
+}

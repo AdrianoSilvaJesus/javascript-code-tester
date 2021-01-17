@@ -8,6 +8,7 @@
 		<meta name="generator" content="Sublime Text 3">
 		<link rel="stylesheet" type="text/css" href="css/main.css">
 		<link rel="stylesheet" type="text/css" href="css/entrada-texto.css">
+		<link rel="stylesheet" type="text/css" href="css/code-tester.css">
 	</head>
 	<body>
 		<header id="cabecalho">
@@ -16,6 +17,7 @@
 		</header>
 		<main class="container">
 			<article class="saida">
+				<ul id="saida-testes"></ul>
 			</article>
 			<aside id="editor-texto">
 				<nav id="menu-editor">
@@ -29,7 +31,10 @@
 						</li>
 					</ul>
 				</nav>
-				<div id="entrada-texto">
+				<div id="editor">
+					<div id="contador-linha">0</div>
+					<div id="entrada-texto">
+				</div>
 				</div>
 			</aside>
 		</main>
@@ -38,5 +43,6 @@
 	<script type="text/javascript" src="js/support-lib/util.js"></script>
 	<script type="text/javascript" src="js/teclado.js"></script>
 	<script type="text/javascript" src="js/edicao.js"></script>
+	<script type="text/javascript" src="js/code-tester.js"></script>
 	<script type="text/javascript" src="js/engine.js"></script>
 </html>

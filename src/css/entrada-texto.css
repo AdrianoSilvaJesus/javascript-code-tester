@@ -4,7 +4,7 @@
 	height: 100%;
 	flex: 1;
 	/* Estilo */
-	background-color: #222634;
+	background-color: #000000;
 }
 
 #menu-editor {
@@ -46,9 +46,26 @@
 	height: 20px;
 }
 
+#editor {
+	height: 93%;
+	width: 100%;
+	display: flex;
+	overflow: auto;
+	white-space: pre-wrap;
+}
+
+#contador-linha {
+	margin-right: 10px;
+	flex: 1 0 1;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	font-size: 10pt;
+}
+
 #entrada-texto {
 	width: 100%;
-	height: 93%;
+	height: 100%;
 	/* Estilo */
 	background-color: #000000;
 	color: #00b800;

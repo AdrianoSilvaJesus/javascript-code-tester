@@ -28,4 +28,18 @@ html, body {
 	flex: 2;
 	/* Estilo */
 	background-color: white;
+	display: flex;
+	flex-direction: row;
+	justify-content: center;
+}
+
+#saida-testes {
+	list-style: none;
+	display: flex;
+	flex-direction: column;
+	width: 80%;
+}
+
+#saida-testes ul {
+	list-style: none;
 }
