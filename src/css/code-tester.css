@@ -2,21 +2,32 @@
 	text-align: none;
 	flex: 1 0 1;
 	/* Estilo */
-	border: 1px solid #0f5132;
 	background-color: #d1e7dd;
+	margin-bottom: 5px;
+	color: black;
 }
 
 .grupo-falso {
 	/* Estilo */
-	border: 1px solid #87202e;
 	background-color: #f8d7da;
+	margin-bottom: 5px;
+	padding: 3px;
+	color: black;
 }
 
 .verdadeiro {
+	/* Estilo */
 	color: #0f5132;
+	background-color: #d1e7dd;
+	border: 3px solid #0f5132;
+	margin: 5px;
 }
 
 .falso {
+	/* Estilo */
 	color: #87202e;
 	text-decoration: line-through;
+	background-color: #f8d7da;
+	border: 3px solid #87202e;
+	margin: 5px;
 }
